@@ -20,24 +20,7 @@
 
   
   // trails
- /* var audio = new Audio(
-    'sound/autumn_cut1.mp3'
-    );
-    var audio_play = function(){
-    audio.play();
-  };
-*/
   timeline = [];
-
-  // play audio samples
-  var sound_block = {
-        type: 'single-audio',
-        stimulus: 'sound/autumn_cut1.wav',
-        prompt: "Hit Space to Begin"
-    };
-
-  timeline.push(sound_block);
-
 
   // welcome
   var welcome_block = {
@@ -62,23 +45,15 @@
   };
 
   timeline.push(instruction_block);
+    
+      // play audio samples
+  var sound_block = {
+        type: 'single-audio',
+        stimulus: 'sound/autumn_cut1.wav',
+        prompt: "Hit Space to Begin"
+    };
 
-  var repeat = {
-    timeline: [{
-      type: 'audio-button-response',
-      stimulus: 'sound/autumn_cut1.wav',
-      choices: ['Play again','Continue']
-    }],
-    loop_function: function(data){
-      if(data.values()[0].button_pressed == 0){
-          return true; // loop again!
-      } else {
-          return false; // continue
-      }
-    }
-  }; 
-
-  timeline.push(test_procedure);
+  timeline.push(sound_block);
   
   var trail_one = {
     type:'html-button-response',
