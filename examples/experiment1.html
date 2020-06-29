@@ -3,12 +3,12 @@
   <head>
     <title>Wintson CEL EXPERIMENT 2020 v1</title>
 
-    <script src="jspsych-6-2/jspsych.js"></script>
-    <script src="jspsych-6-2/plugins/jspsych-html-button-response.js"></script>
-    <script src="jspsych-6-2/plugins/jspsych-instructions.js"></script>
-    <script src="jspsych-6-2/plugins/jspsych-audio-button-response.js"></script>
-    <script src="jspsych-6-2/plugins/jspsych-single-audio.js"></script>
-    <link rel="stylesheet" href="jspsych-6-2/css/jspsych.css"></link>
+    <script src="jspsych.js"></script>
+    <script src="plugins/jspsych-html-button-response.js"></script>
+    <script src="plugins/jspsych-instructions.js"></script>
+    <script src="plugins/jspsych-audio-button-response.js"></script>
+    <script src="plugins/jspsych-single-audio.js"></script>
+    <link rel="stylesheet" href="css/jspsych.css"></link>
     <style>
         div{
             background: #000;
@@ -20,23 +20,12 @@
 
   
   // trails
- /* var audio = new Audio(
-    'sound/autumn_cut1.mp3'
-    );
-    var audio_play = function(){
-    audio.play();
-  };
-*/
   timeline = [];
-
-/*  var audio = new Audio('sound/autumn_cut1.mp3');
-  audio.play();
-  */
 
   // play audio samples
   var sound_block = {
         type: 'single-audio',
-        stimulus: 'jspsych-6-2/examples/sound/autumn_cut1.wav',
+        stimulus: 'examples/sound/autumn_cut1.wav',
         prompt: "Hit Space to Begin"
     };
 
@@ -67,23 +56,6 @@
 
   timeline.push(instruction_block);
 
-  var repeat = {
-    timeline: [{
-      type: 'audio-button-response',
-      stimulus: 'jspsych-6-2/examples/sound/autumn_cut1.wav',
-      choices: ['Play again','Continue']
-    }],
-    loop_function: function(data){
-      if(data.values()[0].button_pressed == 0){
-          return true; // loop again!
-      } else {
-          return false; // continue
-      }
-    }
-  }; 
-
-  timeline.push(test_procedure);
-  
   var trail_one = {
     type:'html-button-response',
     stimulus: '<p>Active or Passive?</p>',
@@ -97,44 +69,6 @@
     choices: ['Agitated', 'Calm'],
     prompt: "<p>Agitated or Calm?</p>"
   };  
-
-
-//  var sounds = ['sound/autumn_cut1.mp3', 'sound/autumn_cut2.mp3'];
-//  var shuffled_sounds  = shuffle(sounds);
-
-/*  var test_stimuli = [
-    { stimulus: "sound/autumn_cut1.mp3"},
-    { stimulus: "sound/autumn_cut2.mp3"}
-  ];
-
-  var scale = [
-  ['Active','Passive'],
-  ['Strong','Weak']
-  ];
-
-  var test = {
-    type: 'html-button-response',
-    stimulus: jsPsych.timelineVariable('stimulus'),
-    choices: scales
-  };
-
-  var test_procedure = {
-      timeline: test,
-      timeline_variables: test_stimuli,
-      randomize_order: true,
-      repetitions: 2,
-      scales:function(){
-        for(var i = 0; i<scale.length; i++){
-        scales = scale[i];
-        // alert('scales');
-      }
-    }
-  };
-
-   timeline.push(test_procedure);
-
-*/
- 
   
   // experiment start
  // timeline.push(repeat);
