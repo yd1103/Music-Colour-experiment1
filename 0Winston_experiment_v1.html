@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Wintson CEL EXPERIMENT 2020 v1</title>
+
+    <script src="../jspsych.js"></script>
+    <script src="../plugins/jspsych-html-button-response.js"></script>
+    <script src="../plugins/jspsych-instructions.js"></script>
+    <script src="../plugins/jspsych-audio-button-response.js"></script>
+    <script src="../plugins/jspsych-single-audio.js"></script>
+    <link rel="stylesheet" href="../css/jspsych.css"></link>
+    <style>
+        div{
+            background: #000;
+        }
+    </style>
+  </head>
+  <body></body>
+  <script>
+
+  
+  // trails
+ /* var audio = new Audio(
+    'sound/autumn_cut1.mp3'
+    );
+    var audio_play = function(){
+    audio.play();
+  };
+*/
+  timeline = [];
+
+/*  var audio = new Audio('sound/autumn_cut1.mp3');
+  audio.play();
+  */
+
+  // play audio samples
+  var sound_block = {
+        type: 'single-audio',
+        stimulus: 'sound/autumn_cut1.wav',
+        prompt: "Hit Space to Begin"
+    };
+
+  timeline.push(sound_block);
+
+
+  // welcome
+  var welcome_block = {
+    type: 'html-button-response',
+    stimulus: '<p style="color: white; font-size: 24px;"> 实验开始时，你听到一段音频，请根据你的感受选择你认为更匹配的形容词，都点选完毕后按下“下一页”按钮，进入下一段测试</p>. '+
+    'Clicking the button below counts as an interaction. Be aware of this when planning audio experiments if '+
+    'you want the first trial to include audio.',
+    choices: ['Continue']
+  }; 
+
+  timeline.push(welcome_block);
+
+  // instructions  
+  var instruction_block = {
+    type: 'instructions',
+    pages: ['<p style="color: white; font-size: 24px;"> 第一阶段</p>'+
+      '<p style="color: white; font-size: 24px;"> 你将会听到音频，请你在暗室当中，闭上眼睛聆听音乐</p>',
+      '<p style="color: white; font-size: 24px;"> 第二阶段</p>',
+      '<p style="color: white; font-size: 24px;"> +second+</p>'],
+    show_clickable_nav: true,
+    show_page_number: true
+  };
+
+  timeline.push(instruction_block);
+
+  var repeat = {
+    timeline: [{
+      type: 'audio-button-response',
+      stimulus: 'sound/autumn_cut1.wav',
+      choices: ['Play again','Continue']
+    }],
+    loop_function: function(data){
+      if(data.values()[0].button_pressed == 0){
+          return true; // loop again!
+      } else {
+          return false; // continue
+      }
+    }
+  }; 
+
+  timeline.push(test_procedure);
+  
+  var trail_one = {
+    type:'html-button-response',
+    stimulus: '<p>Active or Passive?</p>',
+    choices: ['Active', 'Passive'],
+    prompt: "<p>Active or Passive?</p>",
+  };
+
+  var trail_two = {
+    type:'html-button-response',
+    stimulus: '<p>Agitated or Calm?</p>',
+    choices: ['Agitated', 'Calm'],
+    prompt: "<p>Agitated or Calm?</p>"
+  };  
+
+
+//  var sounds = ['sound/autumn_cut1.mp3', 'sound/autumn_cut2.mp3'];
+//  var shuffled_sounds  = shuffle(sounds);
+
+/*  var test_stimuli = [
+    { stimulus: "sound/autumn_cut1.mp3"},
+    { stimulus: "sound/autumn_cut2.mp3"}
+  ];
+
+  var scale = [
+  ['Active','Passive'],
+  ['Strong','Weak']
+  ];
+
+  var test = {
+    type: 'html-button-response',
+    stimulus: jsPsych.timelineVariable('stimulus'),
+    choices: scales
+  };
+
+  var test_procedure = {
+      timeline: test,
+      timeline_variables: test_stimuli,
+      randomize_order: true,
+      repetitions: 2,
+      scales:function(){
+        for(var i = 0; i<scale.length; i++){
+        scales = scale[i];
+        // alert('scales');
+      }
+    }
+  };
+
+   timeline.push(test_procedure);
+
+*/
+ 
+  
+  // experiment start
+ // timeline.push(repeat);
+ // timeline.push(audio_play);
+  timeline.push(trail_one);
+  timeline.push(trail_two);
+ // timeline.push(trails);
+
+
+  jsPsych.init({
+    timeline: timeline,
+    default_iti: 500,
+    preload_audio: all_audio_files,
+    use_webaudio: false,
+    on_finish: function(){ 
+      jsPsych.data.displayData();
+      jsPsych.data.get().localSave('csv','Audiodata.csv');
+  }
+
+//    preload_audio: audio,
+  });
+
+  </script>
+</html>
